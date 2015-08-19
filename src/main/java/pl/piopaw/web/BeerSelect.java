@@ -17,31 +17,31 @@ public class BeerSelect extends HttpServlet {
 		// response.setContentType("text/html");
 		// PrintWriter out = response.getWriter();
 		// out.println("Beer selection advice <br>");
-		String c = request.getParameter("color"); 
+		String c = request.getParameter("color");
 
 		BeerExpert be = new BeerExpert();
 		List<String> result = be.getBrands(c);
 
 		request.setAttribute("styles", result);
-		
-		System.out.println("LocalPort: "+request.getLocalPort());
-		System.out.println("ServerPort: "+request.getServerPort());
-		System.out.println("RemotePort: "+request.getRemotePort());
-		
-		response.setHeader("Dupa", "x2");
-		response.addHeader("Dupa", "x1");
-		
-		System.out.println(response.getHeader("Dupa"));
+
+		System.out.println("LocalPort: " + request.getLocalPort());
+		System.out.println("ServerPort: " + request.getServerPort());
+		System.out.println("RemotePort: " + request.getRemotePort());
+
+		response.setHeader("header", "x2");
+		response.addHeader("header", "x1");
+
+		System.out.println(response.getHeader("header")); // x2
 
 		RequestDispatcher view = request.getRequestDispatcher("result.jsp");
 
 		view.forward(request, response);
-		
+
 		getServletContext().setAttribute("ddd", "Dodany atrybut");
 		getServletContext().setAttribute("ddd", "Zmieniony atrybut");
 		getServletContext().removeAttribute("ddd");
-		
-		//OutputStream os = response.getOutputStream();
+
+		// OutputStream os = response.getOutputStream();
 		// out.println("<br>Got beer color "+c);
 	}
 
@@ -54,7 +54,7 @@ public class BeerSelect extends HttpServlet {
 		int read = 0;
 		byte[] bytes = new byte[1024];
 		OutputStream os = response.getOutputStream();
-		while((read = is.read(bytes)) != -1) {
+		while ((read = is.read(bytes)) != -1) {
 			os.write(bytes, 0, read);
 		}
 		os.flush();
